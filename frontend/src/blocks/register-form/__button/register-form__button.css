@@ -1,0 +1,26 @@
+.register-form__button {
+  margin-top: 186px;
+  width: 100%;
+  border: none;
+  border-radius: 2px;
+  padding: 14px 0;
+  font-size: 18px;
+  line-height: 1.2;
+  color: rgba(0, 0, 0, 1);
+  background-color: white;
+  cursor: pointer;
+}
+
+.register-form__button:hover {
+  opacity: 0.6;
+}
+
+
+@media screen and (max-width: 550px) {
+  .register-form__button {
+    min-height: 46px;
+    width: 238px;
+    font-size: 14px;
+    margin-top: 15px;
+  }
+}

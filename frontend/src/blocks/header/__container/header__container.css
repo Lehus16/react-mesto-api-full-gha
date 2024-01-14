@@ -1,0 +1,15 @@
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  transition: display 0.3s;
+}
+
+
+@media screen and (max-width: 590px) {
+  .header__container {
+    flex-direction: column;
+    text-align: center;
+    margin: 40px auto;
+    display: none;
+  }
+}

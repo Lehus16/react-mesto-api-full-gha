@@ -1,0 +1,19 @@
+.header__burger-button {
+  background-color: inherit;
+  border: none;
+  display: none;
+  padding: 0;
+  margin: 0;
+}
+
+.header__burger-button:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 590px) {
+  .header__burger-button {
+    display: block;
+    margin-right: 30px;
+  }
+}

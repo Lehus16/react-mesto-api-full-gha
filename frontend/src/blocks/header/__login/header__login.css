@@ -1,0 +1,22 @@
+.header__login {
+  border: none;
+  color: rgba(255, 255, 255, 1);
+  background-color: inherit;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1.22;
+  text-decoration: none;
+}
+
+
+.header__login:hover {
+  opacity: 0.6;
+}
+
+
+@media screen and (max-width: 590px) {
+  .header__login {
+    margin: 0;
+    font-size: 14px;
+  }
+}

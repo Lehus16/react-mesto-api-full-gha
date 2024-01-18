@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const generateToken = require('../utils/jwt');
 
+// Импорты ошибок и кодов
 const NotFoundError = require('../errors/notFound');
 const BadRequestError = require('../errors/badRequest');
 const MongoDuplicateConflict = require('../errors/mongoDuplicate');
@@ -47,11 +48,16 @@ module.exports.login = (req, res, next) => {
         maxAge: 3600000,
         httpOnly: true,
         sameSite: true,
-        secure: true,
+        // secure: true,
       });
-      return res.send({ token });
+      return res.send({ message: 'Выполнен вход' });
     })
     .catch(next);
+};
+
+module.exports.logout = (req, res) => {
+  // очищаем токен
+  res.clearCookie('jwt').send({ message: 'Выполнен выход' });
 };
 
 module.exports.getUsers = (req, res, next) => {

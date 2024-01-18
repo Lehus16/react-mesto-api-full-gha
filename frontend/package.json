@@ -2,7 +2,7 @@
     "name": "mesto-react",
     "version": "0.1.0",
     "private": true,
-    "homepage": "http://lehus16.github.io/mesto-react",
+    "homepage": ".",
     "dependencies": {
         "cra-template": "1.2.0",
         "react": "^18.2.0",

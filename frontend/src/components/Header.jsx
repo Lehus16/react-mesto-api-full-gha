@@ -10,9 +10,9 @@ import Login from "./Login";
 import Register from "./Register";
 
 
-const Header = ({ logout, userEmail }) => {
+const Header = ({ onSignOut, userEmail }) => {
 
-  const isAuth = useContext(AppContext)
+  const isAuth = useContext(AppContext);
 
 
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
@@ -36,7 +36,7 @@ const Header = ({ logout, userEmail }) => {
           <Route path="/mesto-react" element={
             <>
               {userEmail && <p className="header__email">{userEmail}</p>}
-              <Link to={"/sign-in"} className={'header__login header__login_logged'} onClick={logout}>Выйти</Link>
+              <Link to={"/sign-in"} className={'header__login header__login_logged'} onClick={onSignOut}>Выйти</Link>
             </>
           } />
         </Routes>
@@ -55,7 +55,7 @@ const Header = ({ logout, userEmail }) => {
             <Route path="/mesto-react" element={
               <>
                 {userEmail && <p className="header__email">{userEmail}</p>}
-                <Link to={"/sign-in"} className={'header__login header__login_logged'} onClick={logout}>Выйти</Link>
+                <Link to={"/sign-in"} className={'header__login header__login_logged'} onClick={onSignOut}>Выйти</Link>
               </>
             } />
           </Routes>

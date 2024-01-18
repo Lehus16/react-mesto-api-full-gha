@@ -1,7 +1,6 @@
 class AuthApi {
   constructor(options) {
     this.baseUrl = options.baseUrl;
-    this.contentType = options.headers['Content-Type'];
   }
 
   _checkResponse(res) {
@@ -13,8 +12,10 @@ class AuthApi {
   signIn(data) {
     return fetch(`${this.baseUrl}/signin`, {
       method: 'POST',
+      credentials: 'include',
       headers: {
-        'Content-Type': this.contentType,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         email: data.email,
@@ -27,7 +28,8 @@ class AuthApi {
     return fetch(`${this.baseUrl}/signup`, {
       method: 'POST',
       headers: {
-        'Content-Type': this.contentType,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         email: data.email,
@@ -36,24 +38,36 @@ class AuthApi {
     }).then((res) => this._checkResponse(res));
   }
 
-  checkToken(token) {
-    return fetch(`${this.baseUrl}/users/me`, {
+  signOut() {
+    return fetch(`${this.baseUrl}/signout`, {
       method: 'GET',
+      credentials: 'include',
       headers: {
-        'authorization': `Bearer ${token}`,
-        'Content-Type': this.contentType,
-      },
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
     }).then((res) => this._checkResponse(res));
   }
+  // Проверка токена если тот сохраняется в загаловке.
+  // checkToken(token) {
+  //   return fetch(`${this.baseUrl}/users/me`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'authorization': `Bearer ${token}`,
+  //       'Content-Type': this.contentType,
+  //     },
+  //   }).then((res) => this._checkResponse(res));
+  // }
 
 }
 
 
 
 const myAuthApi = new AuthApi({
-  baseUrl: 'https://auth.nomoreparties.co',
+  baseUrl: 'https://api.lehus.mesto.nomoredomainsmonster.ru',
+  credentials: 'include',
   headers: {
-    authorization: '229a23af-9dc4-41d6-bbdd-adedac035c83',
+    'Accept': 'application/json',
     'Content-Type': 'application/json',
   },
 })

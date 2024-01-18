@@ -181,10 +181,10 @@ function App() {
   const onSignIn = (data) => {
     myAuthApi.signIn(data)
       .then((res) => {
-        localStorage.setItem('jwt', res.token)
+        // localStorage.setItem('jwt', res.token)
         setIsAuth(true)
         setUserEmail(data.email)
-        navigate('/mesto-react', { replace: true })
+        navigate('/', { replace: true })
       })
       .catch(() => {
         setIsAuth(false)
@@ -193,27 +193,33 @@ function App() {
       })
   }
 
-  const logout = () => {
-    localStorage.removeItem('jwt')
-    setIsAuth(false)
-    setUserEmail('')
-    navigate('/sign-in', { replace: true })
-  }
-
-  const handleTokenCheck = (jwt) => {
-    myAuthApi.checkToken(jwt)
-      .then((res) => {
-        if (res) {
-          setUserEmail(res.data.email);
-          setIsAuth(true);
-          navigate('/mesto-react', { replace: true });
-        }
+  const onSignOut = () => {
+    myAuthApi.signOut()
+      .then(() => {
+        setIsAuth(false)
+        setUserEmail('')
+        navigate('/sign-in', { replace: true })
       })
       .catch((err) => {
-        console.log(err)
-        setIsAuth(false)
+        console.log(err);
       })
+
   }
+
+  // const handleTokenCheck = (jwt) => {
+  //   myAuthApi.checkToken(jwt)
+  //     .then((res) => {
+  //       if (res) {
+  //         setUserEmail(res.data.email);
+  //         setIsAuth(true);
+  //         navigate('/mesto-react', { replace: true });
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //       setIsAuth(false)
+  //     })
+  // }
 
 
   useEffect(() => {
@@ -232,13 +238,13 @@ function App() {
   }, [isAuth])
 
 
-  useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      handleTokenCheck(jwt)
-    }
-    // eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   const jwt = localStorage.getItem('jwt');
+  //   if (jwt) {
+  //     handleTokenCheck(jwt)
+  //   }
+  //   // eslint-disable-next-line
+  // }, []);
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <CardsContext.Provider value={cards}>
@@ -247,7 +253,7 @@ function App() {
 
             <div>
               <PageOverlay isLoading={isPageOverlayLoading} Logo={Logo} />
-              <Header userEmail={userEmail} logout={logout} isAuth={isAuth} />
+              <Header userEmail={userEmail} onSignOut={onSignOut} isAuth={isAuth} />
               <Routes>
                 <Route path="/mesto-react" element={
                   <ProtectedRoute

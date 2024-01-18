@@ -1,6 +1,7 @@
 const { ValidationError, CastError } = require('mongoose').Error;
 const Card = require('../models/card');
 
+// Импорты ошибок и кодов
 const BadRequestError = require('../errors/badRequest');
 const NotFoundError = require('../errors/notFound');
 const ForbiddenError = require('../errors/forbiddenError');

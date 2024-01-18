@@ -16,7 +16,7 @@ const cors = (req, res, next) => {
   const { method } = req;
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
   const requestHeaders = req.headers['access-control-request-headers'];
-  res.headers('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Credentials', true);
   // Проверяем, что origin есть среди разрешённых
   if (allowedCors.includes(origin)) {
     // Если это так, устанавливаем заголовок и останавливаем middleware

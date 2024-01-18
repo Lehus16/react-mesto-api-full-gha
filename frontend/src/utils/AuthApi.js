@@ -54,7 +54,8 @@ class AuthApi {
   //     method: 'GET',
   //     headers: {
   //       'authorization': `Bearer ${token}`,
-  //       'Content-Type': this.contentType,
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json',
   //     },
   //   }).then((res) => this._checkResponse(res));
   // }

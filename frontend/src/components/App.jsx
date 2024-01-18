@@ -181,12 +181,11 @@ function App() {
   const onSignIn = (data) => {
     myAuthApi.signIn(data)
       .then((res) => {
-        localStorage.setItem('jwt', res.token);
-        console.log(res.token);
-        console.log(localStorage);
-        setIsAuth(true)
-        setUserEmail(data.email)
-        navigate('/mesto', { replace: true })
+        if (res.message) {
+          setIsAuth(true)
+          setUserEmail(data.email)
+          navigate('/', { replace: true })
+        }
       })
       .catch(() => {
         setIsAuth(false)
@@ -226,10 +225,11 @@ function App() {
 
   useEffect(() => {
     if (isAuth) {
-      Promise.all([myApi.getUserInfo(), myApi.getInitialCards()]).then(([user, cards]) => {
-        setCurrentUser(user)
-        setCards(cards)
-      })
+      Promise.all([myApi.getUserInfo(), myApi.getInitialCards()])
+        .then(([user, cards]) => {
+          setCurrentUser(user)
+          setCards(cards)
+        })
         .catch((err) => {
           console.error(err);
         })
@@ -257,7 +257,7 @@ function App() {
               <PageOverlay isLoading={isPageOverlayLoading} Logo={Logo} />
               <Header userEmail={userEmail} onSignOut={onSignOut} isAuth={isAuth} />
               <Routes>
-                <Route path="/mesto-react" element={
+                <Route path="/" element={
                   <ProtectedRoute
                     element={Main}
                     handleTrashBtnClick={handleTrashBtnClick}

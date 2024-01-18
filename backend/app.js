@@ -22,6 +22,11 @@ app.use(cookieParser());
 // Логгер запросов
 app.use(requestLogger);
 
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 // Обработчик роутов
 app.use(router);
 app.use('*', (req, res, next) => next(new NotFoundError('Запрашиваемый ресурс не найден')));

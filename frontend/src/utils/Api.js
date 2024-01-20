@@ -4,7 +4,7 @@
 class Api {
   constructor(options) {
     this.baseUrl = options.baseUrl;
-    this.autorization = options.headers.authorization;
+    this.headers = options.headers;
   }
 
   _checkResponse(res) {
@@ -114,8 +114,8 @@ const myApi = new Api({
   baseUrl: 'https://api.lehus.mesto.nomoredomainsmonster.ru',
   credentials: 'include',
   headers: {
-    'Accept': 'application/json',
     'Content-Type': 'application/json',
+    'Accept': 'application/json',
   },
 });
 

@@ -18,7 +18,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import Register from './Register';
 import Login from './Login';
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
-import myAuthApi from "../utils/AuthApi";
+import * as myAuthApi from "../utils/AuthApi";
 import InfoTooltip from "./InfoTooltip";
 
 

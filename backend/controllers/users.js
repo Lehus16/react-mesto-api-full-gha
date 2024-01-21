@@ -27,6 +27,7 @@ module.exports.createUser = (req, res, next) => {
       about: user.about,
       avatar: user.avatar,
       email: user.email,
+      jwt: user.payload,
     }))
     .catch((error) => {
       if (error.code === Statuses.MONGO_DUPLICATE) {

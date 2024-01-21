@@ -4,7 +4,7 @@ import Main from "./Main";
 import Footer from "./Footer";
 import PopupImage from "./PopupImage";
 import myApi from "../utils/Api";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import { CardsContext } from "../contexts/CardsContext";
 import { CardContext } from "../contexts/CardContext";
 import EditProfilePopup from "./EditProfilePopup";
@@ -47,6 +47,23 @@ function App() {
 
   const navigate = useNavigate();
 
+
+  useEffect(() => {
+    if (isAuth) {
+      Promise.all([myApi.getUserInfo(), myApi.getInitialCards()])
+        .then((res) => {
+          const [user, cards] = res;
+          setCurrentUser(user)
+          setCards(cards)
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+        .finally(() => {
+          setIsPageOverlayLoading(false)
+        });
+    }
+  }, [isAuth])
 
   function handleClosePopupByEsc(e) {
     if (e.key === 'Escape') {
@@ -223,21 +240,7 @@ function App() {
   // }
 
 
-  useEffect(() => {
-    if (isAuth) {
-      Promise.all([myApi.getUserInfo(), myApi.getInitialCards()])
-        .then(([user, cards]) => {
-          setCurrentUser(user)
-          setCards(cards)
-        })
-        .catch((err) => {
-          console.error(err);
-        })
-        .finally(() => {
-          setIsPageOverlayLoading(false)
-        });
-    }
-  }, [isAuth])
+
 
 
   // useEffect(() => {
@@ -247,6 +250,7 @@ function App() {
   //   }
   //   // eslint-disable-next-line
   // }, []);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <CardsContext.Provider value={cards}>
@@ -272,7 +276,8 @@ function App() {
                 } />
                 <Route path="/sign-in" element={<Login submitHandler={onSignIn} />} />
                 <Route path="/sign-up" element={<Register submitHandler={onSignUp} />} />
-                <Route path="*" element={<Navigate to="/sign-in" />} />
+                <Route path="*" element={
+                  !isAuth ? <Navigate to="/sign-in" /> : <Navigate to="/" />} />
               </Routes>
 
               <Footer />

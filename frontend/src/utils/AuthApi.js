@@ -20,7 +20,7 @@ export const signUp = (data) => {
     }),
 
   })
-    .then(checkResponse)
+    .then(checkResponse);
 }
 
 export const signIn = (data) => {
@@ -33,10 +33,10 @@ export const signIn = (data) => {
     },
     body: JSON.stringify({
       email: data.email,
-      password: data.password
+      password: data.password,
     }),
   })
-    .then(checkResponse);
+    .then(checkResponse)
 }
 
 export const signOut = () => {

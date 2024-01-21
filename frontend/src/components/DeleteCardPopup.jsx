@@ -3,7 +3,6 @@ import PopupWithForm from './PopupWithForm'
 import { CardContext } from '../contexts/CardContext'
 const DeleteCardPopup = ({ name, title, buttonText, isOpen, onClose, onSubmit, isLoading }) => {
 
-
   const card = useContext(CardContext)
 
   const handleSubmit = (e) => {

@@ -18,7 +18,7 @@ class Api {
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'GET',
       credentials: 'include',
-    }).then((res) => this._checkResponse(res));
+    }).then((res) => console.log(res));
   }
 
   patchUserInfo(data) {

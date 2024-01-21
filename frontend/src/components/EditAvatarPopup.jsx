@@ -6,7 +6,6 @@ import { urlRegex } from '../utils/utils'
 const EditAvatarPopup = ({ name, title, buttonText, isOpen, onClose, onUpdateAvatar, isLoading }) => {
 
 
-
   const methods = useForm({
     mode: 'onChange',
     defaultValues: {

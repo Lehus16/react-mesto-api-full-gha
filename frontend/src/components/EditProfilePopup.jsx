@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import PopupWithForm from './PopupWithForm'
 import Input from './Input'
-import { CurrentUserContext } from '../contexts/CurrentUserContext'
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js'
 import { Controller, FormProvider, useForm } from "react-hook-form";
 const EditProfilePopup = ({ formName, title, buttonText, isOpen, onClose, onUpdateUser, isLoading }) => {
 

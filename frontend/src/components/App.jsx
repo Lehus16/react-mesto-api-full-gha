@@ -46,10 +46,6 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-
-  })
-
-  useEffect(() => {
     if (isAuth) {
       Promise.all([myApi.getUserInfo(), myApi.getInitialCards()])
         .then((res) => {
@@ -200,7 +196,6 @@ function App() {
     myAuthApi.signIn(data)
       .then((res) => {
         if (res.message) {
-          console.log(res);
           localStorage.setItem('isAuth', 'true');
           setIsAuth(true)
           setUserEmail(data.email)
@@ -228,32 +223,32 @@ function App() {
 
   }
 
-  const handleTokenCheck = (jwt) => {
-    myAuthApi.checkToken(jwt)
-      .then((res) => {
-        if (res) {
-          setUserEmail(res.data.email);
-          setIsAuth(true);
-          navigate('/', { replace: true });
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-        setIsAuth(false)
-      })
-  }
+  // const handleTokenCheck = (jwt) => {
+  //   myAuthApi.checkToken(jwt)
+  //     .then((res) => {
+  //       if (res) {
+  //         setUserEmail(res.data.email);
+  //         setIsAuth(true);
+  //         navigate('/mesto', { replace: true });
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //       setIsAuth(false)
+  //     })
+  // }
 
 
 
 
 
-  useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      handleTokenCheck(jwt)
-    }
-    // eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   const jwt = localStorage.getItem('jwt');
+  //   if (jwt) {
+  //     handleTokenCheck(jwt)
+  //   }
+  //   // eslint-disable-next-line
+  // }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

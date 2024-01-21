@@ -52,17 +52,6 @@ export const signOut = () => {
     .then(checkResponse);
 }
 
-export const checkToken = (token) => {
-  return fetch(`${this.baseUrl}/users/me`, {
-    method: 'GET',
-    headers: {
-      'authorization': `Bearer ${token}`,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-  }).then((res) => this._checkResponse(res));
-}
-
 // class AuthApi {
 //   constructor(options) {
 //     this.baseUrl = options.baseUrl;

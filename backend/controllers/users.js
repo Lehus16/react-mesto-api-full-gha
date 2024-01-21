@@ -44,7 +44,12 @@ module.exports.login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = generateToken({ _id: user._id });
-      res.header('Authorization', `Bearer ${token}`);
+      res.cookie('jwt', token, {
+        maxAge: 3600000,
+        httpOnly: true,
+        sameSite: true,
+        // secure: true,
+      });
       return res.send({
         message: 'Выполнен вход',
       });

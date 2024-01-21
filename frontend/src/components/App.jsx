@@ -49,7 +49,7 @@ function App() {
 
 
   useEffect(() => {
-    if (isAuth) {
+    if (localStorage.getItem('isAuth') === 'true') {
       Promise.all([myApi.getUserInfo(), myApi.getInitialCards()])
         .then((res) => {
           const [user, cards] = res;
@@ -199,6 +199,7 @@ function App() {
     myAuthApi.signIn(data)
       .then((res) => {
         if (res.message) {
+          localStorage.setItem('isAuth', 'true')
           setIsAuth(true)
           setUserEmail(data.email)
           navigate('/', { replace: true })

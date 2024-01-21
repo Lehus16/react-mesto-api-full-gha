@@ -46,12 +46,20 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      setIsAuth(true)
+    }
+  }, [])
+
+  useEffect(() => {
     if (isAuth) {
       Promise.all([myApi.getUserInfo(), myApi.getInitialCards()])
         .then((res) => {
           const [user, cards] = res;
           setCurrentUser(user)
+          setUserEmail(user.email)
           setCards(cards)
+          navigate('/', { replace: true })
         })
         .catch((err) => {
           console.error(err);
@@ -60,6 +68,7 @@ function App() {
           setIsPageOverlayLoading(false)
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth])
 
   function handleClosePopupByEsc(e) {
@@ -68,17 +77,19 @@ function App() {
     }
   }
 
-  function handleCardLike(card) {
+  const handleCardLike = (card) => {
+
     const isLiked = card.likes.some(i => i._id === currentUser._id);
-    myApi.changeLikeCardStatus(card, isLiked)
+
+    myApi.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+        console.log(newCard);
+        setCards((currentState) => currentState.map((cardElement) => cardElement._id === card._id ? newCard : cardElement));
       })
       .catch((err) => {
-        console.error(err);
-      });
+        console.log(`Ошибка при лайке/дислайке элемента: ${err}`);
+      })
   }
-
   function handleCardDelete(card) {
     setIsCardDeleteLoading(true)
     myApi.deleteCard(card)
@@ -196,7 +207,7 @@ function App() {
     myAuthApi.signIn(data)
       .then((res) => {
         if (res.message) {
-          localStorage.setItem('isAuth', 'true');
+          localStorage.setItem('isLoggedIn', 'true');
           setIsAuth(true)
           setUserEmail(data.email)
           navigate('/', { replace: true })
@@ -212,7 +223,7 @@ function App() {
   const onSignOut = () => {
     myAuthApi.signOut()
       .then(() => {
-        localStorage.removeItem('isAuth');
+        localStorage.removeItem('isLoggedIn');
         setIsAuth(false)
         setUserEmail('')
         navigate('/sign-in', { replace: true })

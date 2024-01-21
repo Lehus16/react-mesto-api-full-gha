@@ -81,34 +81,38 @@ class Api {
     }).then((res) => this._checkResponse(res));
   }
 
-  putCardLike(item) {
-    return fetch(`${this.baseUrl}/cards/${item._id}/likes`, {
-      method: 'PUT',
+  // putCardLike(item) {
+  //   return fetch(`${this.baseUrl}/cards/${item._id}/likes`, {
+  //     method: 'PUT',
+  //     credentials: 'include',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json'
+  //     },
+  //   }).then((res) => this._checkResponse(res));
+  // }
+
+  // deleteCardLike(item) {
+  //   return fetch(`${this.baseUrl}/cards/${item._id}/likes`, {
+  //     method: 'DELETE',
+  //     credentials: 'include',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json'
+  //     },
+  //   }).then((res) => this._checkResponse(res));
+  // }
+
+  changeLikeCardStatus(cardId, isLiked) {
+    return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+      method: isLiked ? 'PUT' : 'DELETE',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-    }).then((res) => this._checkResponse(res));
-  }
-
-  deleteCardLike(item) {
-    return fetch(`${this.baseUrl}/cards/${item._id}/likes`, {
-      method: 'DELETE',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-    }).then((res) => this._checkResponse(res));
-  }
-
-  changeLikeCardStatus(item, isLiked) {
-    if (isLiked) {
-      return this.deleteCardLike(item);
-    } else {
-      return this.putCardLike(item);
-    }
+    })
+      .then(this._checkResponse.bind(this));
   }
 }
 

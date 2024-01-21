@@ -8,14 +8,19 @@ const Card = ({ card, onCardClick, onCardLike, handleTrashBtnClick }) => {
   const isLiked = card.likes.some(i => i._id === currentUser._id);
   const cardLikeButtonClassName = (
     `element__button ${isLiked && 'element__button-liked'}`
-  );;
+  );
   const handleClick = (card) => {
     onCardClick(card)
+  }
+
+  const handleCardLike = () => {
+    onCardLike(card);
   }
 
   const handleDeleteButtonClick = () => {
     handleTrashBtnClick(card)
   }
+
 
   return (
 
@@ -33,7 +38,7 @@ const Card = ({ card, onCardClick, onCardLike, handleTrashBtnClick }) => {
         <div className="element__button-container">
           <button
             onClick={() => {
-              onCardLike(card)
+              handleCardLike()
             }}
             aria-label="Поставить лайк"
             type="button"

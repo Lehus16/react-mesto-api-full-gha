@@ -53,6 +53,7 @@ const toggleCardLikes = (req, res, likesData, next) => {
     likesData,
     { new: true },
   )
+    .populate(['owner', 'likes'])
     .orFail(new NotFoundError('Несуществующий _id карточки'))
     .then((card) => res.status(Statuses.OK_REQUEST).send(card))
     .catch((error) => {

@@ -26,6 +26,7 @@ class Api {
   patchUserInfo(data) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'

@@ -23,8 +23,6 @@ import InfoTooltip from "./InfoTooltip";
 
 
 
-
-
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
@@ -47,9 +45,12 @@ function App() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+
+  })
 
   useEffect(() => {
-    if (localStorage.getItem('isAuth') === 'true') {
+    if (isAuth) {
       Promise.all([myApi.getUserInfo(), myApi.getInitialCards()])
         .then((res) => {
           const [user, cards] = res;
@@ -199,7 +200,8 @@ function App() {
     myAuthApi.signIn(data)
       .then((res) => {
         if (res.message) {
-          localStorage.setItem('isAuth', 'true')
+          console.log(res);
+          localStorage.setItem('isAuth', 'true');
           setIsAuth(true)
           setUserEmail(data.email)
           navigate('/', { replace: true })
@@ -215,6 +217,7 @@ function App() {
   const onSignOut = () => {
     myAuthApi.signOut()
       .then(() => {
+        localStorage.removeItem('isAuth');
         setIsAuth(false)
         setUserEmail('')
         navigate('/sign-in', { replace: true })
@@ -225,32 +228,32 @@ function App() {
 
   }
 
-  // const handleTokenCheck = (jwt) => {
-  //   myAuthApi.checkToken(jwt)
-  //     .then((res) => {
-  //       if (res) {
-  //         setUserEmail(res.data.email);
-  //         setIsAuth(true);
-  //         navigate('/mesto', { replace: true });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err)
-  //       setIsAuth(false)
-  //     })
-  // }
+  const handleTokenCheck = (jwt) => {
+    myAuthApi.checkToken(jwt)
+      .then((res) => {
+        if (res) {
+          setUserEmail(res.data.email);
+          setIsAuth(true);
+          navigate('/', { replace: true });
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        setIsAuth(false)
+      })
+  }
 
 
 
 
 
-  // useEffect(() => {
-  //   const jwt = localStorage.getItem('jwt');
-  //   if (jwt) {
-  //     handleTokenCheck(jwt)
-  //   }
-  //   // eslint-disable-next-line
-  // }, []);
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      handleTokenCheck(jwt)
+    }
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -260,7 +263,7 @@ function App() {
 
             <div>
               <PageOverlay isLoading={isPageOverlayLoading} Logo={Logo} />
-              <Header userEmail={userEmail} onSignOut={onSignOut} isAuth={isAuth} />
+              <Header userEmail={userEmail} onSignOut={onSignOut} />
               <Routes>
                 <Route path="/" element={
                   <ProtectedRoute

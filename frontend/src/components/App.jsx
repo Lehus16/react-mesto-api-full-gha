@@ -69,7 +69,7 @@ function App() {
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuth])
+  }, [isAuth]);
 
   function handleClosePopupByEsc(e) {
     if (e.key === 'Escape') {
@@ -143,6 +143,11 @@ function App() {
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
+      })
+      .then(() => {
+        myApi.getInitialCards().then(res => {
+          setCards(res);
+        });
       })
       .catch((err) => {
         console.error(err);

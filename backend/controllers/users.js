@@ -2,7 +2,7 @@
 const { ValidationError } = require('mongoose').Error;
 // eslint-disable-next-line import/no-extraneous-dependencies
 const bcrypt = require('bcrypt');
-const User = require('../models/user');
+const User = require('./models/user');
 const generateToken = require('../utils/jwt');
 
 // Импорты ошибок и кодов

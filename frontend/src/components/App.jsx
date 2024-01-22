@@ -145,7 +145,8 @@ function App() {
         closeAllPopups();
       })
       .then(() => {
-        myApi.getInitialCards().then(res => {
+        myApi.getInitialCards()
+        .then(res => {
           setCards(res);
         });
       })
